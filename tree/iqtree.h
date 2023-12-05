@@ -1022,5 +1022,21 @@ public:
     bool on_refine_btree;
     Alignment* saved_aln_on_refine_btree;
     vector<IntVector> boot_samples_int;
+
+protected:
+    std::vector<int> list_iter;
+    std::vector<double> list_score;
+
+public:
+    void insertIterScore(int iter, double score) {
+        list_iter.push_back(iter);
+        list_score.push_back(score);
+    }
+    pair<int, double> getIterScoreAtId(int id) {
+        if (id >= list_iter.size()) {
+            return {-1, -1};
+        }
+        return {list_iter[id], list_score[id]};
+    }
 };
 #endif

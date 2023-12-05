@@ -1554,6 +1554,8 @@ public:
      */
     string model_name;
 
+    bool write_iter_score;
+
     /** model name to initialize GTR20 or NONREV protein model */
     char* model_name_init;
 

@@ -2359,7 +2359,11 @@ double IQTree::doTreeSearch() {
         /*----------------------------------------
          * convergence criterion for ultrafast bootstrap
          *---------------------------------------*/
-         
+        
+        if (MPIHelper::getInstance().isMaster() && params->write_iter_score) {
+            list_iter.push_back(stop_rule.getCurIt());
+            list_score.push_back(candidateTrees.getBestScore());
+        }
 
         // MASTER receives bootstrap trees and perform stop convergence test 
         if ((stop_rule.getCurIt()) >= ufboot_count &&

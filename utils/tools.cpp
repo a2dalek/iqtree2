@@ -1019,6 +1019,7 @@ void parseArg(int argc, char *argv[], Params &params) {
     params.tree_gen = NONE;
     params.user_file = NULL;
     params.constraint_tree_file = NULL;
+    params.write_iter_score = false;
     params.opt_gammai = true;
     params.opt_gammai_fast = false;
     params.opt_gammai_keep_bran = false;
@@ -2412,6 +2413,10 @@ void parseArg(int argc, char *argv[], Params &params) {
 				params.partition_file = argv[cnt];
 				params.partition_type = BRLEN_SCALE;
                 params.opt_gammai = false;
+				continue;
+			}
+            if (strcmp(argv[cnt], "-write_iter_score") == 0) {
+                params.write_iter_score = true;
 				continue;
 			}
 			if (strcmp(argv[cnt], "-spj") == 0 || strcmp(argv[cnt], "-q") == 0) {

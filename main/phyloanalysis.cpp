@@ -1675,6 +1675,27 @@ void reportPhyloAnalysis(Params &params, IQTree &tree, ModelCheckpoint &model_in
         //reportCredits(out); // not needed, now in the manual
         out.close();
 
+        if (params.write_iter_score) {
+            std::cout << "\nWrite best score after each iteration to file " << params.out_prefix << ".iter_score.csv\n";
+
+            string csv_file_name = params.out_prefix;
+            csv_file_name += ".iter_score.csv";
+
+            std::ofstream outputFile(csv_file_name);
+
+            outputFile << "Iter,Best score\n";
+
+            int id = 0;
+            while (true) {
+                auto iter_score = tree.getIterScoreAtId(id);
+                if (iter_score.first == -1) break;
+                outputFile << iter_score.first << "," << iter_score.second << "\n";
+                id++;
+            }
+
+            outputFile.close();
+        }
+
     } catch (ios::failure) {
         outError(ERR_WRITE_OUTPUT, outfile);
     }
